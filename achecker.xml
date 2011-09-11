@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Module>
+	<ModulePrefs title="AChecker gadget" title_url="http://energisenow.elementfx.com"
+				description="validate web content"
+				author_email="selvam1991@gmail.com"
+				scaling="true"
+				scrolling='true'>
+		<Require feature="opensocial-0.9" />
+		<Require feature="dynamic-height" />
+		<Require feature="tabs"/>
+		<Require feature="views"/>
+		<Require feature="setprefs"/>
+	</ModulePrefs>
+	<UserPref name="selectedTab" datatype="hidden"/>
+	<UserPref name="webserviceID" display_name="webservice_ID" default_value="1aafda87a95a059f5c997a3799fa666b7e7d1ebc"/>   
+	<Content type='html' view="home">
+	<![CDATA[
+		<head>
+		<link rel='stylesheet' type='text/css' href='http://energisenow.elementfx.com/test/assets/style_profile.css'/>
+		<link rel='stylesheet' type='text/css' href='http://energisenow.elementfx.com/test/assets/style_common.css'/>
+		</head>
+		<div id='main'>
+			<div id='tab_validate' style="display:none;">  
+			<!-- DIV TAG :  contains the validation box  -->
+				<div id="validate-box">
+					<table>
+						<tbody>
+							<tr>
+							<td>
+								<img heigth="30px" src="http://achecker.ca/themes/default/images/checker_logo.png" width="150px">
+							</td>
+							</tr>
+							<tr>
+								<td>
+								<input id="url_link" onfocus="this.value=''" style="background-color:#EEE;font-family:'Arial';" type="text" value="www.achecker.ca">
+								</td>
+								<td>
+									<input height="50px" onclick="main_check()" src="http://www.thesuryaexports.com/images/products/forward-button.png" type="image" value="check" width="50px">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div id="loading" style="display:none">
+						<img height="24" src="http://45second.com/includes/client_side/images/loading.gif" width="24">
+						Loading...
+					</div>
+		   
+			<!-- DIV TAG :  contains the result table  -->	
+					<div id='result' style='display:none'>
+						<table style='margin-left:auto;margin-right:auto;'>
+							<tr><td>STATUS :</td><td id='status' style=''></td></tr>
+							<tr><td>TOTAL ERRORS:</td><td class='results' id='errors'></td></tr>	     
+							<tr><td>LIKELY PROBLEMS:</td><td class='results' id='l_probs'></td></tr>
+							<tr><td>POTENTIAL PROBLEMS:</td><td class='results' id='p_probs'></td></tr>
+							<tr><td></td></tr>
+						</table>
+						<span style="font-size:11px;color:brown;">---NOTE--- &nbsp; More problem details can be viewed at canvas view....maximize(top-right corner of the gadget) the gadget to switch to canvas view.</span>
+					</div>
+			
+				</div>
+			</div>
+<!--   "end of tab_validate" div  -->	
+
+<!-- DIV TAG :  contains the guidline options  -->
+			<div id='tab_guidelines' style="display:none;">
+				<table id="guidelines" class="data static">
+					<tbody>
+						<tr>
+							<td colspan="3"><h3>Guidelines to Check Against</h3></td>
+						</tr>
+						<tr>
+						<td>
+							<input type="checkbox" value="BITV1" id="gid_1" name="gid[]">
+							<label for="gid_1">BITV 1.0 (Level 2)</label>
+						</td>
+						<td>
+							<input type="checkbox" value="508" id="gid_2" name="gid[]">
+							<label for="gid_2">Section 508</label>
+						</td>
+						<td>
+							<input type="checkbox" value="STANCA" id="gid_3" name="gid[]">
+							<label for="gid_3">Stanca Act</label>
+						</td>
+						</tr>
+						<tr>
+						<td>
+							<input type="checkbox" value="WCAG1-A" id="gid_4" name="gid[]">
+							<label for="gid_4">WCAG 1.0 (Level A)</label>
+						</td>
+						<td>
+							<input type="checkbox" value="WCAG1-AA" id="gid_5" name="gid[]">
+							<label for="gid_5">WCAG 1.0 (Level AA)</label>
+						</td>
+						<td>
+							<input type="checkbox" value="WCAG1-AAA" id="gid_6" name="gid[]">
+							<label for="gid_6">WCAG 1.0 (Level AAA)</label>
+						</td>
+						</tr>
+						<tr>
+						<td>
+						  <input type="checkbox" value="WCAG2-A" id="gid_7" name="gid[]">
+						  <label for="gid_7">WCAG 2.0 (Level A)</label>
+						</td>
+						<td>
+						  <input type="checkbox" checked="checked" value="WCAG2-AA" id="gid_8" name="gid[]">
+						  <label for="gid_8">WCAG 2.0 (Level AA)</label>
+						</td>
+						<td>
+						  <input type="checkbox" value="WCAG2-AAA" id="gid_9" name="gid[]">
+						  <label for="gid_9">WCAG 2.0 (Level AAA)</label>
+						</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+<!-- DIV TAG :  contains the options to share  -->
+			<div id="tab_share" style="display:none;">
+				<div id='share'>
+					<table style='margin-left:auto;margin-right:auto'>
+						<tbody>
+							<tr>
+								<td style='padding:15px;'>
+									<form name='htmlgenerate' action="http://www.energisenow.elementfx.com/test/report.php"  method="post" onsumbit="check_field(0)">
+										<input type='hidden' value='html' id='type' name='type'/>
+										<input type='hidden' value='' id='uri' name='uri_form'/>
+										<a href="javascript:check(document.htmlgenerate)"><img src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -98px; width: 48px; height: 48px;"/></a>
+									</form>
+								</td>
+								<td style='padding:15px;'>
+									<form name='xmlgenerate' action="http://www.energisenow.elementfx.com/test/report.php"  method="post" onsumbit="return check_field(1)">
+										<input type='hidden' value='xml' id='type' name='type'/>
+										<input type='hidden' value='' id='uri' name='uri_form'/>
+										<input type='hidden' value='' name='total'/>
+										<a href="javascript:check(document.xmlgenerate)"><img src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -392px; width: 48px; height: 48px;"/></a>
+									</form>
+								</td>
+								<td style='padding:15px;'>
+									<img style='padding-bottom:10px' src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -294px; width: 48px; height: 48px;" onclick="twitter()" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<span style='font-size:10px'>please validate a page before pressing the above download links...or else it will throw error.</span>
+				</div>
+			</div>
+
+<!-- DIV TAG :  contains the help menu  -->        
+			<div id='tab_help' style="display:none;">
+				<table>
+					<tbody>
+						<tr style='height:15px;'><td ></td><td></td></tr>
+						<tr><td  class='notes_left'>STEP 1</td><td class='notes_right'>Please register yourself at www.achecker.ca .</td></tr>
+						<tr><td  class='notes_left'>STEP 2</td><td class='notes_right'>Once you log in, in the profile tab a 40 character webservice ID will be mentioned below your login name. Copy it.</td></tr>
+						<tr><td  class='notes_left'>STEP 2</td><td class='notes_right'>Copy your webserviceID in the edit settings option(which appears after you press the down arrow button on the right top corner of the gadget).Press Save.</td></tr>
+						<tr><td  class='notes_left'>STEP 4</td><td class='notes_right'>Finish!</td></tr>
+						<tr style='height:15px;'><td ></td><td ></td></tr>
+						<tr><td class='notes_left'>---NOTE---</td><td class='notes_right'>For more details on the "validation result" and FAQ please use the canvas view! (maximize the gadget to use the canvas view)</td></tr>
+						<tr style='height:15px;'><td ></td><td></td></tr>
+						<tr><td  class='notes_left'>Feedback</td><td class='notes_right'>Please send your valuable comments to selvam1991@gmail.com. It will help us improve the gadget!</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+  
+		<script type='text/javascript'>
+			var prefs = new gadgets.Prefs();
+			var summary, url_link;
+		//::::: Creates the tabs for the gadget :::::::::::::
+			var tabs = new gadgets.TabSet(__MODULE_ID__, "Validate"); 
+			tabs.addTab("Validate", "tab_validate");
+			tabs.addTab("Options", "tab_guidelines");
+			tabs.addTab("Share/Export", "tab_share");
+			tabs.addTab("Help", "tab_help");
+		 
+		</script>
+		<script type='text/javascript' src='http://energisenow.elementfx.com/test/assets/script_profile.js'></script>
+		]]>
+	</Content>
+ 
+ <Content type='html' view="canvas">
+  <![CDATA[
+	<link rel='stylesheet' type='text/css' href='http://energisenow.elementfx.com/test/assets/style_canvas.css'/>
+	<link rel='stylesheet' type='text/css' href='http://energisenow.elementfx.com/test/assets/style_common.css'/>
+		<div id='main'>
+			<div id='tab_validate' style="display:;">  
+<!-- DIV TAG :  contains the validation box  -->
+	<div id='validate-box'>
+	   <table style='margin-left:auto;margin-right:auto;'><tbody>
+	   <tr><td><img src='http://achecker.ca/themes/default/images/checker_logo.png' /></td></tr>
+	   <br/>
+	   <tr>
+              <td><input type="text" value="www.achecker.ca" style="background-color:#EEE;font-family:'Arial';" onfocus="this.value=''" id="url_link"></td>
+              <td><input width="50px" type="image" height="50px" onclick="main_check()" value="check" src="http://www.thesuryaexports.com/images/products/forward-button.png"></td>
+           </tr>
+	   </tbody></table>
+	  </div>
+          <div id='loading' style='display:none'><img src='http://45second.com/includes/client_side/images/loading.gif' height='24' width='24'/>
+	   Loading...
+	   </div>
+<!-- DIV TAG :  contains the result table  -->	
+	<div id='result' style='display:none'>
+	     <table>
+	     <tr><td>STATUS :</td><td id='status' style=''></td></tr>
+	     <tr><td>TOTAL ERRORS:</td><td class='results' id='errors'></td></tr>	     
+	     <tr><td>LIKELY PROBLEMS:</td><td class='results' id='l_probs'></td></tr>
+	     <tr><td>POTENTIAL PROBLEMS:</td><td class='results' id='p_probs'></td></tr>
+	     </table>
+	     <br/>
+
+          <div >
+               <table>
+               <tr><td> 
+               <input id="type0" onclick="display('error_details','type0')" type="button" style="background-color:orange;" value="ERRORS">
+                </td><td> 
+               <input id="type1" onclick="display('l_prob_details','type1')" type="button" style="background-color:orange;" value="LIKELY PROBLEMS">
+                </td><td>
+                <input id="type2" onclick="display('p_prob_details','type2')" type="button" style="background-color:orange;" value="POTENTIAL PROBLEMS">
+                </td><td>
+                <input id="type3" onclick="display('all','type3')" type="button" style="background-color:orange;" value="LIST ALL">
+                </td></tr>
+           </table>
+	   <table>
+            <thead>
+               <tr><th class='top'>TYPE</th><th class='top'>LINE</th><th class='top'>COLUMN</th><th class='top'>ERROR MESSAGE</th><th class='top'>ERROR SOURCE CODE</th></tr></thead>
+            <tbody id='error_details' style='color:red'></tbody>
+	   <tbody id='l_prob_details' style='color:sienna'></tbody>
+	   <tbody id='p_prob_details'></tbody></table>
+	   </div> 
+   </div>
+<!-- DIV TAG :  contains the guidline options  -->
+      <div id='tab_guidelines' style="display:none;">
+	<table id="guidelines" style='margin-left:auto;margin-right:auto;'class="data static">
+	<tbody>
+	  <tr>
+	    <td colspan="3"><h3>Guidelines to Check Against</h3></td>
+	  </tr>
+	  <tr>
+	    <td>
+	      <input type="checkbox" value="BITV1" id="gid_1" name="gid[]">
+	      <label for="gid_1">BITV 1.0 (Level 2)</label>
+	    </td>
+	    <td>
+	      <input type="checkbox" value="508" id="gid_2" name="gid[]">
+	      <label for="gid_2">Section 508</label>
+	    </td>
+	    <td>
+	      <input type="checkbox" value="STANCA" id="gid_3" name="gid[]">
+	      <label for="gid_3">Stanca Act</label>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+	      <input type="checkbox" value="WCAG1-A" id="gid_4" name="gid[]">
+	      <label for="gid_4">WCAG 1.0 (Level A)</label>
+	    </td>
+	    <td>
+	      <input type="checkbox" value="WCAG1-AA" id="gid_5" name="gid[]">
+	      <label for="gid_5">WCAG 1.0 (Level AA)</label>
+	    </td>
+	    <td>
+	      <input type="checkbox" value="WCAG1-AAA" id="gid_6" name="gid[]">
+	      <label for="gid_6">WCAG 1.0 (Level AAA)</label>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+	      <input type="checkbox" value="WCAG2-A" id="gid_7" name="gid[]">
+	      <label for="gid_7">WCAG 2.0 (Level A)</label>
+	    </td>
+	    <td>
+	      <input type="checkbox" checked="checked" value="WCAG2-AA" id="gid_8" name="gid[]">
+	      <label for="gid_8">WCAG 2.0 (Level AA)</label>
+	    </td>
+	    <td>
+	      <input type="checkbox" value="WCAG2-AAA" id="gid_9" name="gid[]">
+	      <label for="gid_9">WCAG 2.0 (Level AAA)</label>
+	    </td>
+	  </tr>
+	</tbody>
+	</table>
+	</div>
+<!-- DIV TAG :  contains the options to share  -->
+	<div id="tab_share" style="display:none;">
+		<div id='share'>
+		 <table style='margin-left:auto;margin-right:auto;'>
+		 <tbody>
+		       <tr><td style='padding:35px;'>
+		        <form name="pdfgenerate" action="http://www.energisenow.elementfx.com/test/report.php" onsubmit="return pdf()" method="post">
+                         <input type='hidden' value=''  name='total'/>
+                         <input type='hidden' value=''  name='url'/>
+                         <input type='hidden' value=''  name='guide'/>
+                          <input type='hidden' value='pdf'  name='type'/>
+                         <div id='postfield1'></div>
+                         <a href="javascript:check(document.pdfgenerate)"><img  src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -196px; width: 48px; height: 48px;"/></a>
+		
+                         </form><strong>PDF</strong>
+                        </td>
+                         <td style='padding:35px;'>
+                         <form name="csvgenerate" action="http://energisenow.elementfx.com/test/report.php" method="post">
+                         <input type='hidden' value=''  name='total'/>
+                         <input type='hidden' value=''  name='url'/>
+                         <input type='hidden' value=''  name='guide'/>
+                         <input type='hidden' value='csv'  name='type'/>
+                         <div id='postfield2'></div>
+                         <a href="javascript:check(document.csvgenerate)"><img src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 0px; width: 48px; height: 48px;"/></a>
+		
+                         </form><strong>CSV</strong>		
+                         </td>
+                         <td style='padding:35px;'>
+                         <form name="earlgenerate" action="http://energisenow.elementfx.com/test/report.php" method="post">
+                         <input type='hidden' value=''  name='total'/>
+                         <input type='hidden' value=''  name='url'/>
+                         <input type='hidden' value=''  name='guide'/>
+                         <input type='hidden' value='earl'  name='type'/>
+                         <div id='postfield3'></div>
+                          <a href="javascript:check(document.earlgenerate)"><img src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -485px; width: 48px; height: 48px;"/></a>
+		
+                         </form><strong>EARL</strong>		
+                         </td>
+                          <td style='padding:35px;'>
+		          <form name='htmlgenerate' action="http://energisenow.elementfx.com/test/report.php"  method="post">
+		            <input type='hidden' value=''  name='total'/>
+                           <input type='hidden' value='html' id='type' name='type'/>
+                           <input type='hidden' value='' id='uri' name='uri_form'/>
+                           <a href="javascript:check(document.htmlgenerate)"><img src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -98px; width: 48px; height: 48px;"/>
+		 	    </form><strong>HTML</strong>
+        	            </td>
+                            <td style='padding:35px;'>
+        	            <form name='xmlgenerate' action="http://energisenow.elementfx.com/test/report.php"  method="post">
+		             <input type='hidden' value=''  name='total'/>
+                             <input type='hidden' value='xml' id='type' name='type'/>
+                             <input type='hidden' value='' id='uri' name='uri_form'/>
+		             <a href="javascript:check(document.xmlgenerate)"><img src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -392px; width: 48px; height: 48px;"/></a>
+		
+		            </form><strong>XML</strong>
+        	            </td><td style='padding:15px;'>
+        	<img style='padding-bottom:10px' src="http://www.energisenow.elementfx.com/test/images/white.gif" style=" background:url(http://www.energisenow.elementfx.com/test/images/sprite.png) no-repeat top left; background-position: 0 -294px; width: 48px; height: 48px;" onclick="twitter()" />
+		<br/><br/><strong>Twitter</strong></td></tr>
+                        </tbody></table>
+                <table style='margin-left:auto;margin-right:auto;'><tr><td><span >Please validate a page before pressing the above download links.</span></td></tr></table>
+		</div>
+	</div>
+
+
+<!-- DIV TAG :  contains the help menu  -->        
+      <div id='tab_help' style="display:none;">
+          <table>
+           <tbody>
+              <tr style='height:20px'><td></td><ts></td></tr>
+              <tr><td class='notes_left'>STEP 1</td><td class='notes_right'>Please register yourself at www.achecker.ca .</td></tr>
+              <tr style='height:1px'><td></td><td></td></tr>
+              <tr><td class='notes_left'>STEP 2</td><td class='notes_right'>Once you log in, in the profile tab a 40 character webservice ID will be mentioned below your login name. Copy it.</td></tr>
+              <tr style='height:1px'><td></td><td></td></tr>
+              <tr><td  class='notes_left'>STEP 3</td><td class='notes_right'>Please copy your webservice ID in the "Edit" option(present on the right top corner of the gadget). Press Save.</td></tr>
+              <tr style='height:1px'><td></td><td></td></tr>
+              <tr><td  class='notes_left'>STEP 4</td><td class='notes_right'>Finish!</td></tr>
+              <tr style='height:20px;'><td ></td><td></td></tr>
+              <tr><td  class='notes_left'>Feedback</td><td class='notes_right'>Please send your valuable comments to selvam1991@gmail.com. It will help us improve the gadget!</td></tr>
+              <tr style='height:20px;'><td ></td><td></td></tr>
+              <tr><td class='notes_left'>FAQ</td><td></td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>How to go back to the gadget from the pdf report?</td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>Once you click the pdf report, the report opens in the gadget itself. To go back press the 'achecker gadget' option in the right side menu.</td></tr>
+              <tr style='height:20px;'><td ></td><td></td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>How to change the guidelines against which the the website is validated? </td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>Goto the second tab from left "guidlines".Choose any number of guidelines to validate the url against all of them in one go!</td></tr>
+              <tr style='height:20px;'><td ></td><td></td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>How to access the error details?</td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>The profile view provides only the summary of the error report. For more details please switch to canvas view.</td></tr>
+              <tr style='height:20px;'><td ></td><td></td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>How to get more details on the achecker service?</td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>This gadget extends the functionalities of achecker.ca to social platforms for developers ease. For more details please visit www.achecker.ca</td></tr>
+              <tr style='height:20px;'><td ></td><td></td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>Where to get more details on each guideline?</td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>www.w3.org has documentation of all the guidelines. OR you can log into achecker.ca . The second tab named "guideline" has all the details regarding each guideline</td></tr>
+              <tr style='height:20px;'><td ></td><td></td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>Can html,css code snippets be validated using this gadget?</td></tr>
+              <tr><td class='notes_left'></td><td class='notes_right'>NO. This feature is available only the parent website www.achecker.ca </td></tr>
+           </tbody></table>
+        </div>
+	
+	
+</div>
+<script type='text/javascript'>
+ var prefs = new gadgets.Prefs();
+ 
+//:::::::::: Creates the required tabs on gadget load ::::::::::
+ 
+ var tabs = new gadgets.TabSet(__MODULE_ID__, "Validate"); 
+ tabs.addTab("Validate", "tab_validate");
+ tabs.addTab("Options", "tab_guidelines");
+ tabs.addTab("Share/export", "tab_share");
+ tabs.addTab("Help", "tab_help");
+ var pdf= " ";
+ var html;
+ </script>
+<script type='text/javascript' src='http://energisenow.elementfx.com/test/assets/script_canvas.js'></script>
+		 
+   ]]>
+  </Content>
+</Module>
