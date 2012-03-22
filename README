@@ -3,7 +3,7 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 The gadget code is present in the achecker.xml file.This file will be used to install in the opensocial containers such as iGoogle, linkedIn, orkut.
-Currently the package i.e the achecker.xml and all the supporting files is hosted at "_______" .
+Currently the package i.e the achecker.xml and all the supporting files is hosted at "selvam.e-caffeine.net/achecker.xml" .
 The achecker.xml file needs these supporting files to function properly.
 
 HOW TO USE THE GADGET
