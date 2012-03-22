@@ -1,0 +1,21 @@
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::Achecker Opensocial Gadget Installation Guide::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+The gadget code is present in the achecker.xml file.This file will be used to install in the opensocial containers such as iGoogle, linkedIn, orkut.
+Currently the package i.e the achecker.xml and all the supporting files is hosted at "_______" .
+The achecker.xml file needs these supporting files to function properly.
+
+HOW TO USE THE GADGET
+---------------------
+Currently to just use the gadget, you just need to install the achecker.xml file in your opensocial container (ex. iGoogle). Just visit iGoogle and goto the option "Add Stuff". Give this url - "_______". The achecker.xml file is currently hosted by www.achecker.ca.
+
+HOW TO HOST YOUR OWN COPY OF THE WHOLE PACKAGE
+--------------------------------------------
+If you want to host your own copy , then
+1). Host the whole folder in your domain.
+2). A small code change has to made in achecker.xml file. 
+  In line 20 and line 186,
+	 instead of <base href="http://energisenow.elementfx.com/test/" /> you will have to put your own domain i.e. <base href="http://www.yourdomain.com/achecker/" />.
+3).Remember while installing in the "Add Stuff" section of iGoogle, use your own link i.e. www.yourdomain.com/achecker/achecker.xml .
+4). DONE!!!
