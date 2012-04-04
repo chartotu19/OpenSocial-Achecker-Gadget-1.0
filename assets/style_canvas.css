@@ -1,0 +1,30 @@
+ body{
+   font-family:"myriad pro";
+   } 
+   #validate-box{
+    padding:10px;
+    margin-left:auto;
+    margin-right:auto;
+    }
+    
+      
+    #guidelines{
+    height:300px;
+    padding:10px;
+    
+    }
+    
+    #share{
+    height:500px;
+    padding:25px;
+    }
+    
+    .qwe{
+      padding:10px;
+      background-color:#EEE;
+    }
+    .top{
+     background-color:#CC0;
+     font-family:"Myriad pro";
+     font-size:20px;
+    }
